@@ -1,37 +1,33 @@
-function stockSpan(n, arr) {
-  let answerarr=[];
-  let stack=[];
-  for(let i=0; i<arr.length ;i++){
-      if(stack.length==0){
-          // answerarr.push(-1)
-      }
-      // if stack size is not zero and top of stack is greater than arr[i]
-      else if(stack.length>0 && stack[stack.length-1][0]>arr[i]){
-          {
-              answerarr.push(stack[stack.length-1][1])
-          }
-      }
-      
-      else if(stack.length>0 && stack[stack.length-1][0]<=arr[i]){
-      // pop until stack size is not zero and top of stack is greater than arr[i]
-      // as soon as arr[i] is smaller loop will break
-          while(stack.length>0 && stack[stack.length-1][0]<=arr[i]){
-              stack.pop()
-          }
-      // if stack size is zero then push 1
-          if(stack.length==0){
-              // answerarr.push(-1)
-          }
-      // if stack size is not zero then push top of stack
-          else{
-              answerarr.push(stack[stack.length-1][1])
-          }
-      }
-      // push arr[i] in stack
-      console.log(stack)
-      stack.push([arr[i],i])
-  }
-  return answerarr
+let heights=[6,2,5,4,5,1,6]
+let smallestVectortoright = []
+let rightStack = [];
+psuedoEle = 7;
+for (let i = heights.length - 1; i >= 0; i--) {
+    let tempArr = [heights[i], i]
+    // console.log(tempArr)
+    if (rightStack.length == 0) {
+        smallestVectortoright.push(psuedoEle)
+    }
+    else if (rightStack.length > 0 && rightStack[rightStack.length - 1][0] < heights[i]) {
+        smallestVectortoright.push(rightStack[rightStack.length - 1][1])
+    }
+    else if (rightStack.length > 0 && rightStack[rightStack.length - 1][0] >= heights[i]) {
+        // console.log(smallestVectortoright.reverse())
+        // console.log(rightStack, i)
+        while (rightStack.length > 0 && rightStack[rightStack.length - 1][0] >= heights[i]) {
+            rightStack.pop();
+        }
+        // console.log(rightStack, i)
+        if (rightStack.length == 0) {
+            smallestVectortoright.push(psuedoEle)
+        }
+        else {
+            smallestVectortoright.push(rightStack[rightStack.length - 1][1])
+        }
+    }
+    rightStack.push(tempArr)
 }
-// Output:         {1,  1,  1,  2,  1,  4,  6}
-console.log(stockSpan(7, [100, 80, 60, 70, 60, 75, 85]))
+// smallestVectortoright=smallestVectortoright.reverse()
+
+// console.log(smallestVectortoleft)
+console.log(smallestVectortoright.reverse())
